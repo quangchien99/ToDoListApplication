@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ToDoListApplication</string>
+    <string name="task_name">Task name...</string>
+    <string name="important_task">Important Task</string>
+    <string name="date_created">Date created:</string>
 </resources>
