@@ -1,5 +1,6 @@
 package com.example.todolistapplication.ui.tasks
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -26,6 +27,7 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TaskViewHolder>(DiffCallback
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: Task) {
+            Log.e("ChienPQ2","Check: ${task.toString()}")
             binding.apply {
                 checkboxCompleted.isChecked = task.isCompleted
                 tvTaskName.text = task.name
