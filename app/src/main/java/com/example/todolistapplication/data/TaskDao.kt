@@ -1,7 +1,6 @@
 package com.example.todolistapplication.data
 
 import androidx.room.*
-import com.example.todolistapplication.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao

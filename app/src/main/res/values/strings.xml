@@ -3,4 +3,10 @@
     <string name="task_name">Task name...</string>
     <string name="important_task">Important Task</string>
     <string name="date_created">Date created:</string>
+    <string name="hide_completed">Hide completed</string>
+    <string name="delete_all_completed">Delete all completed</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort">Sort</string>
+    <string name="search">Search</string>
 </resources>
