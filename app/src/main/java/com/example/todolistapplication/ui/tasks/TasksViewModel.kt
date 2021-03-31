@@ -8,9 +8,11 @@ import com.example.todolistapplication.data.PreferencesManager
 import com.example.todolistapplication.data.SortOrder
 import com.example.todolistapplication.data.Task
 import com.example.todolistapplication.data.TaskDao
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class TasksViewModel @ViewModelInject constructor(
@@ -21,6 +23,10 @@ class TasksViewModel @ViewModelInject constructor(
     val searchQuery = MutableStateFlow("")
 
     val preferencesFlow = preferencesManager.preferencesFlow
+
+    private val taskEvenChanel = Channel<TaskEvent>()
+
+    val taskEvent = taskEvenChanel.receiveAsFlow()
 
     private val taskFlow = combine(
         searchQuery,
@@ -49,5 +55,17 @@ class TasksViewModel @ViewModelInject constructor(
         taskDao.update(task.copy(isCompleted = isChecked))
     }
 
+    fun onTaskSwiped(task: Task) = viewModelScope.launch {
+        taskDao.delete(task)
+        taskEvenChanel.send(TaskEvent.ShowUndoDeleteTaskMessage(task))
+    }
+
+    fun onUndoDeleteClicked(task: Task) = viewModelScope.launch {
+        taskDao.insert(task)
+    }
+
+    sealed class TaskEvent {
+        data class ShowUndoDeleteTaskMessage(val task: Task) : TaskEvent()
+    }
 
 }

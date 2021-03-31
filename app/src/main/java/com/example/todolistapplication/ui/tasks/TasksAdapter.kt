@@ -1,6 +1,5 @@
 package com.example.todolistapplication.ui.tasks
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -11,7 +10,7 @@ import com.example.todolistapplication.data.Task
 import com.example.todolistapplication.databinding.ItemTaskBinding
 
 class TasksAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<Task, TasksAdapter.TaskViewHolder>(DiffCallback()) {
+    ListAdapter<Task, TasksAdapter.TaskViewHolder>(TASK_COMPARATOR) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -60,9 +59,11 @@ class TasksAdapter(private val listener: OnItemClickListener) :
         fun onCheckBoxClick(task: Task, isChecked: Boolean)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Task>() {
-        override fun areItemsTheSame(oldItem: Task, newItem: Task) = oldItem.id == newItem.id
+    companion object {
+        private val TASK_COMPARATOR = object : DiffUtil.ItemCallback<Task>() {
+            override fun areItemsTheSame(oldItem: Task, newItem: Task) = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Task, newItem: Task) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: Task, newItem: Task) = oldItem == newItem
+        }
     }
 }
