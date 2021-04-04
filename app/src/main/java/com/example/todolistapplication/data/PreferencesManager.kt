@@ -54,7 +54,6 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
     suspend fun updateHideCompleted(hideCompleted: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.HIDE_COMPLETED] = hideCompleted
-
         }
     }
 
